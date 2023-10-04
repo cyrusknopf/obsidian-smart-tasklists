@@ -1,0 +1,8 @@
+{
+    "id": "smart-tasklists",
+    "name": "Smart task lists",
+    "version": "0.1.0",
+    "author": "Cyrus Knopf",
+    "description": "Obsidian plugin for improving Markdown task lists",
+    "main": "main.ts"
+}
