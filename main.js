@@ -10,41 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const obsidian_1 = require("obsidian");
-class MyPlugin extends obsidian_1.Plugin {
+class ExamplePlugin extends obsidian_1.Plugin {
     onload() {
         return __awaiter(this, void 0, void 0, function* () {
             this.addCommand({
-                id: 'access-codemirror-instance',
-                name: 'Access CodeMirror Instance',
-                callback: this.accessCodeMirror.bind(this),
+                id: "insert-todays-date",
+                name: "Insert today's date",
+                editorCallback: (editor) => {
+                    const cursor = editor.getCursor();
+                    if (cursor)
+                        console.log("got cursor");
+                },
             });
         });
     }
-    accessCodeMirror() {
-        const mkdview = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
-        if (!mkdview) {
-            console.log('No active Markdown view found.');
-            return;
-        }
-        const editor = mkdview.editor;
-        if (!editor) {
-            console.log('No editor found for the active view.');
-            return;
-        }
-        const cm = editor.cm;
-        if (cm) {
-            console.log('Successfully accessed the CodeMirror instance.');
-            // You can now use the cm variable to interact with CodeMirror directly.
-            const cursor = cm.getCursor();
-            if (cursor)
-                console.log("Got cursor");
-            const token = cm.getTokenTypeAt(cursor);
-            if (token)
-                console.log("Got token");
-        }
-        else {
-            console.log('Failed to access the CodeMirror instance.');
-        }
-    }
 }
-exports.default = MyPlugin;
+exports.default = ExamplePlugin;
