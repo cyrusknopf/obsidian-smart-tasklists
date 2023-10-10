@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "author": "Cyrus Knopf",
     "description": "Obsidian plugin for improving Markdown task lists",
-    "main": "main.ts",
+    "main": "main.js",
     "license": "MIT"
 }
