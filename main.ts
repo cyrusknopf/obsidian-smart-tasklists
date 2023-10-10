@@ -9,6 +9,8 @@ export default class MyPlugin extends Plugin {
         });
     }
 
+
+
     accessCodeMirror() {
         const mkdview = this.app.workspace.getActiveViewOfType(MarkdownView);
         if (!mkdview) {
@@ -26,6 +28,14 @@ export default class MyPlugin extends Plugin {
         if (cm) {
             console.log('Successfully accessed the CodeMirror instance.');
             // You can now use the cm variable to interact with CodeMirror directly.
+
+            const cursor = cm.getCursor();
+            if (cursor) console.log("Got cursor"); 
+            
+            const token = cm.getTokenTypeAt(cursor);
+            if (token) console.log("Got token");
+
+
         } else {
             console.log('Failed to access the CodeMirror instance.');
         }
