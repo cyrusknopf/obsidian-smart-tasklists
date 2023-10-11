@@ -1,4 +1,4 @@
-import { Editor, Plugin } from 'obsidian';
+import { Editor, Plugin, MarkdownView, WorkspaceLeaf } from 'obsidian';
 
 export default class ExamplePlugin extends Plugin {
     async onload() {
@@ -8,7 +8,32 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const cursor = editor.getCursor()
             if (cursor) console.log("got cursor");
+            const line = cursor.line;
+
+            // while (line > 0) {
+            //     const has = editor.processLines(line, "```")
+            // }
         },
       });
+    
+      this.addCommand({
+        id: "resize-pinned-tabs",
+        name: "Shrink pinned tabs",
+        editorCallback: (editor: Editor) => {
+            const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
+            if (markdownView) {
+                const leaf = markdownView.leaf;
+                if (leaf) {
+                    leaf.togglePinned;
+                }
+            }
+        }
+
+        });
+    
+    
     }
+
+
+
   }
