@@ -1,4 +1,4 @@
-import { Editor, Plugin, MarkdownView, WorkspaceLeaf } from 'obsidian';
+import { Editor, Plugin, MarkdownView, ViewState } from 'obsidian';
 
 export default class ExamplePlugin extends Plugin {
     async onload() {
@@ -22,9 +22,10 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
-                console.log(markdownView);
                 const leaf = markdownView.leaf;
-                console.log(leaf.getViewState);
+                const state = leaf.getViewState();
+                const pinned = state.pinned;
+                console.log(pinned);
             }
         }
 
