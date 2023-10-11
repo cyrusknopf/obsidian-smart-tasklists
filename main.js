@@ -47,6 +47,8 @@ class ExamplePlugin extends obsidian_1.Plugin {
                             // Apply your desired styles
                             tabElement.style.backgroundColor = "red";
                         }
+                        else
+                            console.log("fail");
                     }
                 }
             });

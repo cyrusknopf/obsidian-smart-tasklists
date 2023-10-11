@@ -37,6 +37,7 @@ export default class ExamplePlugin extends Plugin {
                     // Apply your desired styles
                     tabElement.style.backgroundColor = "red";
                 }
+                else console.log("fail");
 
             }
         }
