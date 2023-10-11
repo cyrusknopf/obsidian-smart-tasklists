@@ -24,11 +24,7 @@ export default class ExamplePlugin extends Plugin {
             if (markdownView) {
                 console.log(markdownView);
                 const leaf = markdownView.leaf;
-                if (leaf) {
-                    console.log("got leaf");
-                    console.log(leaf);
-                    leaf.setPinned(true);
-                }
+                console.log(leaf.getViewState);
             }
         }
 
