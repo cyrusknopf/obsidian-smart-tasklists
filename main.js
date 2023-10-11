@@ -20,7 +20,24 @@ class ExamplePlugin extends obsidian_1.Plugin {
                     const cursor = editor.getCursor();
                     if (cursor)
                         console.log("got cursor");
+                    const line = cursor.line;
+                    // while (line > 0) {
+                    //     const has = editor.processLines(line, "```")
+                    // }
                 },
+            });
+            this.addCommand({
+                id: "resize-pinned-tabs",
+                name: "Shrink pinned tabs",
+                editorCallback: (editor) => {
+                    const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
+                    if (markdownView) {
+                        const leaf = markdownView.leaf;
+                        if (leaf) {
+                            leaf.togglePinned;
+                        }
+                    }
+                }
             });
         });
     }
