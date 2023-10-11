@@ -1,4 +1,4 @@
-import { Editor, Plugin, MarkdownView, ViewState } from 'obsidian';
+import { Editor, Plugin, MarkdownView } from 'obsidian';
 
 export default class ExamplePlugin extends Plugin {
     async onload() {
@@ -26,6 +26,18 @@ export default class ExamplePlugin extends Plugin {
                 const state = leaf.getViewState();
                 const pinned = state.pinned;
                 console.log(pinned);
+                const title = markdownView.file?.basename;
+
+                const tabElement = Array.from(document.querySelectorAll('.workspace-tab')).find(tab => {
+                    const tabTitle = tab.textContent?.trim();
+                    return tabTitle === title;
+                }) as HTMLElement;
+
+                if (tabElement) {
+                    // Apply your desired styles
+                    tabElement.style.backgroundColor = "red";
+                }
+
             }
         }
 

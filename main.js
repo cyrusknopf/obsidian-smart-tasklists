@@ -30,12 +30,23 @@ class ExamplePlugin extends obsidian_1.Plugin {
                 id: "resize-pinned-tabs",
                 name: "Shrink pinned tabs",
                 editorCallback: (editor) => {
+                    var _a;
                     const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
                     if (markdownView) {
                         const leaf = markdownView.leaf;
                         const state = leaf.getViewState();
                         const pinned = state.pinned;
                         console.log(pinned);
+                        const title = (_a = markdownView.file) === null || _a === void 0 ? void 0 : _a.basename;
+                        const tabElement = Array.from(document.querySelectorAll('.workspace-tab')).find(tab => {
+                            var _a;
+                            const tabTitle = (_a = tab.textContent) === null || _a === void 0 ? void 0 : _a.trim();
+                            return tabTitle === title;
+                        });
+                        if (tabElement) {
+                            // Apply your desired styles
+                            tabElement.style.backgroundColor = "red";
+                        }
                     }
                 }
             });
