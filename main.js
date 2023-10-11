@@ -32,8 +32,11 @@ class ExamplePlugin extends obsidian_1.Plugin {
                 editorCallback: (editor) => {
                     const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
                     if (markdownView) {
+                        console.log(markdownView);
                         const leaf = markdownView.leaf;
                         if (leaf) {
+                            console.log("got leaf");
+                            console.log(leaf);
                             leaf.togglePinned;
                         }
                     }

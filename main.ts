@@ -22,8 +22,11 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
+                console.log(markdownView);
                 const leaf = markdownView.leaf;
                 if (leaf) {
+                    console.log("got leaf");
+                    console.log(leaf);
                     leaf.togglePinned;
                 }
             }
