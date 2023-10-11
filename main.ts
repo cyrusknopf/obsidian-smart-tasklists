@@ -27,7 +27,7 @@ export default class ExamplePlugin extends Plugin {
                 if (leaf) {
                     console.log("got leaf");
                     console.log(leaf);
-                    leaf.togglePinned;
+                    leaf.setPinned(true);
                 }
             }
         }

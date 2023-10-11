@@ -37,7 +37,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         if (leaf) {
                             console.log("got leaf");
                             console.log(leaf);
-                            leaf.togglePinned;
+                            leaf.setPinned(true);
                         }
                     }
                 }
