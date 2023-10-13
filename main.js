@@ -15,7 +15,7 @@ function checkLine(editor, pattern, lineNumber, parent_chain, indent) {
     if (!line)
         return -1;
     if (!pattern.test(line))
-        return -1;
+        return parent_chain;
     const matches = line.match(pattern);
     if (matches) {
         if (matches[0].length > indent) {

@@ -3,7 +3,7 @@ import { Editor, Plugin, MarkdownView } from 'obsidian';
 function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_chain: Array<number>, indent: number) {
     var line = editor.getLine(lineNumber);
     if (!line) return -1;
-    if (!pattern.test(line)) return -1;
+    if (!pattern.test(line)) return parent_chain;
     const matches = line.match(pattern);
     if (matches) {
         if (matches[0].length > indent) {
