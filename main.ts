@@ -22,12 +22,10 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
-                const leaf = markdownView.leaf;
-                const state = leaf.getViewState();
-                const pinned = state.pinned;
-                console.log(pinned);
-                console.log("hot reload");
-
+                const value = editor.getValue();
+                if (value) {
+                    console.log(value);
+                }
             }
         }
 
