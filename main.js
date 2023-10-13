@@ -28,9 +28,6 @@ class ExamplePlugin extends obsidian_1.Plugin {
                     if (cursor)
                         console.log("got cursor");
                     const line = cursor.line;
-                    // while (line > 0) {
-                    //     const has = editor.processLines(line, "```")
-                    // }
                 },
             });
             this.addCommand({
@@ -42,8 +39,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         var task_lines = [];
                         const task_regex = /^\s+- \[ \]/;
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
-                            if (task_regex.test(editor.getLine(i))) {
-                            }
+                            checkLine(editor, task_regex, i, 0);
                         }
                     }
                 }
