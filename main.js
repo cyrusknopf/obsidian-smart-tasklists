@@ -13,9 +13,9 @@ const obsidian_1 = require("obsidian");
 function checkLine(editor, pattern, lineNumber, parent_chain, indent) {
     var line = editor.getLine(lineNumber);
     if (!line)
-        return -1;
+        return 0;
     if (!pattern.test(line))
-        return parent_chain;
+        return 0;
     const matches = line.match(pattern);
     if (matches) {
         if (matches[0].length > indent) {
@@ -34,7 +34,7 @@ function checkLine(editor, pattern, lineNumber, parent_chain, indent) {
             checkLine(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
         else {
-            return parent_chain;
+            return 0;
         }
     }
 }
@@ -51,7 +51,8 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 var parent_chain = [i];
-                                console.log(checkLine(editor, task_regex, i + 1, parent_chain, 0));
+                                checkLine(editor, task_regex, i + 1, parent_chain, 0);
+                                console.log(parent_chain);
                             }
                         }
                     }

@@ -2,8 +2,8 @@ import { Editor, Plugin, MarkdownView } from 'obsidian';
 
 function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_chain: Array<number>, indent: number) {
     var line = editor.getLine(lineNumber);
-    if (!line) return -1;
-    if (!pattern.test(line)) return parent_chain;
+    if (!line) return 0;
+    if (!pattern.test(line)) return 0;
     const matches = line.match(pattern);
     if (matches) {
         if (matches[0].length > indent) {
@@ -22,7 +22,7 @@ function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_c
             checkLine(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
         else {
-            return parent_chain;
+            return 0;
         }
     }
 }
@@ -41,7 +41,8 @@ export default class ExamplePlugin extends Plugin {
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     if (editor.getLine(i).startsWith("- [ ]")) {
                         var parent_chain: number[] = [i];
-                        console.log(checkLine(editor, task_regex, i +1, parent_chain, 0));
+                        checkLine(editor, task_regex, i +1, parent_chain, 0);
+                        console.log(parent_chain);
                 
                     }
                 }
