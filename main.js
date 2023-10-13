@@ -39,7 +39,8 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         var task_lines = [];
                         const task_regex = /^\s+- \[ \]/;
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
-                            checkLine(editor, task_regex, i, 0);
+                            if (editor.getLine(i).startsWith("- [ ]"))
+                                checkLine(editor, task_regex, i + 1, i);
                         }
                     }
                 }

@@ -3,7 +3,7 @@ import { Editor, Plugin, MarkdownView } from 'obsidian';
 function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent: number ) {
     if (pattern.test(editor.getLine(lineNumber))) {
         console.log("There is a task at line: " + lineNumber);
-        console.log("This task reads: " +editor.getLine(lineNumber));
+        console.log("This task reads: " + editor.getLine(lineNumber));
         checkLine(editor, pattern, lineNumber + 1, lineNumber)
     }
 
@@ -31,7 +31,7 @@ export default class ExamplePlugin extends Plugin {
                 var task_lines = [];
                 const task_regex = /^\s+- \[ \]/;
                 for (var i=0; i<editor.lastLine()+1; i++) {
-                    checkLine(editor, task_regex, i, 0);
+                    if (editor.getLine(i).startsWith("- [ ]")) checkLine(editor, task_regex, i +1 , i);
                 }
             }
         }
