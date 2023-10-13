@@ -1,5 +1,15 @@
 import { Editor, Plugin, MarkdownView } from 'obsidian';
 
+function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent: number ) {
+    if (pattern.test(editor.getLine(lineNumber))) {
+        console.log("There is a task at line: " + lineNumber);
+        console.log("This task reads: " +editor.getLine(lineNumber));
+        checkLine(editor, pattern, lineNumber + 1, lineNumber)
+    }
+
+}
+
+
 export default class ExamplePlugin extends Plugin {
     async onload() {
       this.addCommand({
@@ -23,16 +33,9 @@ export default class ExamplePlugin extends Plugin {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
                 var task_lines = [];
+                const task_regex = /^\s+- \[ \]/;
                 for (var i=0; i<editor.lastLine()+1; i++) {
-                    if (editor.getLine(i).startsWith("- [ ]")) {
-                        console.log(editor.getLine(i));
-                        task_lines.push(i);
-                        console.log(task_lines);
-                        console.log("This is the line after:", editor.getLine(i+1));
-                    if (editor.getLine(i).startsWith("\t- [ ]")) {
-                        console.log(editor.getLine(i));
-                        console.log("indented line"); 
-                    }
+                    if (task_regex.test(editor.getLine(i))) {
 
                     }
                 }
