@@ -36,6 +36,9 @@ class ExamplePlugin extends obsidian_1.Plugin {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 console.log(editor.getLine(i));
                             }
+                            else {
+                                console.log(editor.getLine(i));
+                            }
                         }
                     }
                 }
