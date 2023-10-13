@@ -22,7 +22,7 @@ function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_c
             checkLine(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
         else {
-            return null;
+            return parent_chain;
         }
     }
 }
@@ -41,7 +41,7 @@ export default class ExamplePlugin extends Plugin {
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     if (editor.getLine(i).startsWith("- [ ]")) {
                         var parent_chain: number[] = [i];
-                        checkLine(editor, task_regex, i +1, parent_chain, 0);
+                        console.log(checkLine(editor, task_regex, i +1, parent_chain, 0));
                 
                     }
                 }
