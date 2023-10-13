@@ -26,6 +26,9 @@ export default class ExamplePlugin extends Plugin {
                     if (editor.getLine(i).startsWith("- [ ]")) {
                         console.log(editor.getLine(i));
                     }
+                    else {
+                        console.log(editor.getLine(i));
+                    }
                 }
             }
         }
