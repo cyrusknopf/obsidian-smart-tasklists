@@ -1,12 +1,12 @@
 import { Editor, Plugin, MarkdownView } from 'obsidian';
 
-function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parrent_chain: Array<number> ) {
+function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_chain: Array<number> ) {
     if (pattern.test(editor.getLine(lineNumber))) {
-        parrent_chain.push(lineNumber);
+        parent_chain.push(lineNumber-1);
         console.log("There is a task at line: " + lineNumber);
         console.log("This task reads: " + editor.getLine(lineNumber));
-        console.log("It's parent is line" + parrent_chain[parrent_chain.length - 1])
-        checkLine(editor, pattern, lineNumber + 1, parrent_chain)
+        console.log("It's parent is line" + parent_chain[parent_chain.length - 1])
+        checkLine(editor, pattern, lineNumber + 1, parent_chain)
     }
 
 }
