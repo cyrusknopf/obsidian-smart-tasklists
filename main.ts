@@ -28,7 +28,7 @@ export default class ExamplePlugin extends Plugin {
                         console.log(editor.getLine(i));
                         task_lines.push(i);
                         console.log(task_lines);
-                        // console.log(editor.getLine(i+1));
+                        console.log("This is the line after:", editor.getLine(i+1));
                     if (editor.getLine(i).startsWith("   - [ ]")) {
                         console.log(editor.getLine(i));
                         console.log("indented line"); 
