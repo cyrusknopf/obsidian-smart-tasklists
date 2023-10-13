@@ -35,9 +35,10 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 console.log(editor.getLine(i));
+                                console.log("Contains task");
                             }
                             else {
-                                console.log(editor.getLine(i));
+                                console.log("notaskhere");
                             }
                         }
                     }
