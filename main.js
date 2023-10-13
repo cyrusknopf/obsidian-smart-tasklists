@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const obsidian_1 = require("obsidian");
 function checkLine(editor, pattern, lineNumber, parrent_chain) {
     if (pattern.test(editor.getLine(lineNumber))) {
+        parrent_chain.push(lineNumber);
         console.log("There is a task at line: " + lineNumber);
         console.log("This task reads: " + editor.getLine(lineNumber));
         console.log("It's parent is line" + parrent_chain[parrent_chain.length - 1]);

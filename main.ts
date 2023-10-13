@@ -2,7 +2,7 @@ import { Editor, Plugin, MarkdownView } from 'obsidian';
 
 function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parrent_chain: Array<number> ) {
     if (pattern.test(editor.getLine(lineNumber))) {
-
+        parrent_chain.push(lineNumber);
         console.log("There is a task at line: " + lineNumber);
         console.log("This task reads: " + editor.getLine(lineNumber));
         console.log("It's parent is line" + parrent_chain[parrent_chain.length - 1])
