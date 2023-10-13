@@ -7,6 +7,7 @@ function checkLine(editor: Editor, pattern: RegExp, lineNumber: number, parent_c
     const matches = line.match(pattern);
     if (matches) {
         if (matches[0].length > indent) {
+            indent = matches[0].length;
             parent_chain.push(lineNumber-1);
             console.log("There is a task at line: " + lineNumber);
             console.log("This task reads: " + editor.getLine(lineNumber));
