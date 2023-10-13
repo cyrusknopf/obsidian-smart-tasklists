@@ -26,6 +26,13 @@ function checkLine(editor, pattern, lineNumber, parent_chain, indent) {
             console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
             checkLine(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
+        else if (matches[0].length == indent) {
+            parent_chain.push(parent_chain[parent_chain.length - 1]);
+            console.log("There is a task at line: " + lineNumber);
+            console.log("This task reads: " + editor.getLine(lineNumber));
+            console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
+            checkLine(editor, pattern, lineNumber + 1, parent_chain, indent);
+        }
         else {
             return null;
         }
