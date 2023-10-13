@@ -18,13 +18,14 @@ export default class ExamplePlugin extends Plugin {
     
       this.addCommand({
         id: "resize-pinned-tabs",
-        name: "Shrink pinned tabs",
+        name: "Get tasks",
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
-                const value = editor.getValue();
-                if (value) {
-                    console.log(value);
+                for (var i=0; i<editor.lastLine(); i++) {
+                    if (editor.getLine(i).startsWith("- [ ]")) {
+                        console.log(editor.getLine(i));
+                    }
                 }
             }
         }
