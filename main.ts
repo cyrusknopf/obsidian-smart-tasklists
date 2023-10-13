@@ -22,14 +22,14 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
+                var task_lines = [];
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     if (editor.getLine(i).startsWith("- [ ]")) {
                         console.log(editor.getLine(i));
-                        console.log("Contains task")
+                        task_lines.push(i);
+
                     }
-                    else {
-                        console.log("notaskhere");
-                    }
+                console.log(task_lines);
                 }
             }
         }

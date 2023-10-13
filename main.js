@@ -32,14 +32,13 @@ class ExamplePlugin extends obsidian_1.Plugin {
                 editorCallback: (editor) => {
                     const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
                     if (markdownView) {
+                        var task_lines = [];
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 console.log(editor.getLine(i));
-                                console.log("Contains task");
+                                task_lines.push(i);
                             }
-                            else {
-                                console.log("notaskhere");
-                            }
+                            console.log(task_lines);
                         }
                     }
                 }
