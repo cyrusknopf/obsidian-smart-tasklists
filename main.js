@@ -10,13 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const obsidian_1 = require("obsidian");
-function checkLine(editor, pattern, lineNumber, parrent_chain) {
+function checkLine(editor, pattern, lineNumber, parent_chain) {
     if (pattern.test(editor.getLine(lineNumber))) {
-        parrent_chain.push(lineNumber);
+        parent_chain.push(lineNumber - 1);
         console.log("There is a task at line: " + lineNumber);
         console.log("This task reads: " + editor.getLine(lineNumber));
-        console.log("It's parent is line" + parrent_chain[parrent_chain.length - 1]);
-        checkLine(editor, pattern, lineNumber + 1, parrent_chain);
+        console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
+        checkLine(editor, pattern, lineNumber + 1, parent_chain);
     }
 }
 class ExamplePlugin extends obsidian_1.Plugin {
