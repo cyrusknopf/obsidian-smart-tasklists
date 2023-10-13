@@ -32,7 +32,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                 editorCallback: (editor) => {
                     const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
                     if (markdownView) {
-                        for (var i = 0; i < editor.lastLine(); i++) {
+                        for (var i = 0; i < editor.lastLine() + 1; i++) {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 console.log(editor.getLine(i));
                             }

@@ -22,7 +22,7 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
-                for (var i=0; i<editor.lastLine(); i++) {
+                for (var i=0; i<editor.lastLine()+1; i++) {
                     if (editor.getLine(i).startsWith("- [ ]")) {
                         console.log(editor.getLine(i));
                     }
