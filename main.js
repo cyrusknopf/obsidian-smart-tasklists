@@ -37,8 +37,12 @@ class ExamplePlugin extends obsidian_1.Plugin {
                             if (editor.getLine(i).startsWith("- [ ]")) {
                                 console.log(editor.getLine(i));
                                 task_lines.push(i);
+                                console.log(task_lines);
+                                if (editor.getLine(i).startsWith("   - [ ]")) {
+                                    console.log(editor.getLine(i));
+                                    console.log("indented line");
+                                }
                             }
-                            console.log(task_lines);
                         }
                     }
                 }
