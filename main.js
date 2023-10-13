@@ -39,7 +39,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                                 task_lines.push(i);
                                 console.log(task_lines);
                                 console.log("This is the line after:", editor.getLine(i + 1));
-                                if (editor.getLine(i).startsWith("   - [ ]")) {
+                                if (editor.getLine(i).startsWith("\t- [ ]")) {
                                     console.log(editor.getLine(i));
                                     console.log("indented line");
                                 }
