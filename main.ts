@@ -64,7 +64,18 @@ export default class ExamplePlugin extends Plugin {
                         if (match) {
                             var isDone = match[1] == "x";
                             var task = new Task(i, null, match[0].length, isDone, []);
-                            console.log(task);
+                            var isNextLineTask = editor.getLine(i+1).match(task_regex);
+                            if (isNextLineTask) {
+                                if (isNextLineTask[0].length === task.indent) {
+                                    var tasks: Array<Task>;
+                                    tasks = []
+                                    tasks.push(new Task(i, null, match[0].length, isDone, []))
+                                    console.log(tasks);
+                                }
+                            }
+
+
+                            // console.log(task);
                         }
                     }
                 }
