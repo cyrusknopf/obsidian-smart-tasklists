@@ -54,7 +54,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             var match = editor.getLine(i).match(task_regex);
                             if (match) {
-                                var parent_chain = [i];
+                                var parent_chain = [];
                                 // console.log(match[0].length);
                                 // console.log("for line" + editor.getLine(i));
                                 checkLineForTasks(editor, task_regex, i + 1, parent_chain, match[0].length);

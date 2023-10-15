@@ -46,7 +46,7 @@ export default class ExamplePlugin extends Plugin {
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     var match = editor.getLine(i).match(task_regex)
                     if (match) {
-                        var parent_chain: number[] = [i];
+                        var parent_chain: number[] = [];
                         // console.log(match[0].length);
                         // console.log("for line" + editor.getLine(i));
                         checkLineForTasks(editor, task_regex, i +1, parent_chain, match[0].length);
