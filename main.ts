@@ -12,16 +12,16 @@ function checkLineForTasks(editor: Editor, pattern: RegExp, lineNumber: number, 
             indent = matches[0].length;
             parent_chain.push(lineNumber-1);
 
-            console.log("There is a task at line: " + lineNumber);
-            console.log("This task reads: " + editor.getLine(lineNumber));
-            console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
+            // console.log("There is a task at line: " + lineNumber);
+            // console.log("This task reads: " + editor.getLine(lineNumber));
+            // console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
             checkLineForTasks(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
         else if (matches[0].length == indent) {
             parent_chain.push(parent_chain[parent_chain.length - 1]);
-            console.log("There is a task at line: " + lineNumber);
-            console.log("This task reads: " + editor.getLine(lineNumber));
-            console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
+            // console.log("There is a task at line: " + lineNumber);
+            // console.log("This task reads: " + editor.getLine(lineNumber));
+            // console.log("It's parent is line" + parent_chain[parent_chain.length - 1]);
             checkLineForTasks(editor, pattern, lineNumber + 1, parent_chain, indent);
         }
         else {
@@ -46,6 +46,8 @@ export default class ExamplePlugin extends Plugin {
                     var match = editor.getLine(i).match(task_regex)
                     if (match) {
                         var parent_chain: number[] = [i];
+                        console.log(match[0].length);
+                        console.log("for line" + editor.getLine(i));
                         checkLineForTasks(editor, task_regex, i +1, parent_chain, match[0].length);
                     }
                 }
