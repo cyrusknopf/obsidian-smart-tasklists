@@ -6,6 +6,8 @@ function checkLineForTasks(editor: Editor, pattern: RegExp, lineNumber: number, 
     if (!pattern.test(line)) return 0;
     const matches = line.match(pattern);
     if (matches) {
+        console.log("Indent: "+indent);
+        console.log("matches length: " + matches[0].length);
         if (matches[0].length > indent) {
             indent = matches[0].length;
             parent_chain.push(lineNumber-1);
