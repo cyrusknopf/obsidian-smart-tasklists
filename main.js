@@ -41,9 +41,36 @@ function checkLineForTasks(editor, pattern, lineNumber, parent_chain, indent) {
         }
     }
 }
+class Task {
+    constructor(line, parent, indent, isDone, children) {
+        this.line = line;
+        this.parent = parent;
+        this.indent = indent;
+        this.isDone = isDone;
+        this.children = children;
+    }
+}
 class ExamplePlugin extends obsidian_1.Plugin {
     onload() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.addCommand({
+                id: "get-tasks",
+                name: "Get tasks",
+                editorCallback: (editor) => {
+                    const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
+                    if (markdownView) {
+                        const task_regex = /^\s*- \[( |x)\]/;
+                        for (var i = 0; i < editor.lastLine() + 1; i++) {
+                            var match = editor.getLine(i).match(task_regex);
+                            if (match) {
+                                var isDone = match[1] == "x";
+                                var task = new Task(i, null, match[0].length, isDone, []);
+                                console.log(task);
+                            }
+                        }
+                    }
+                }
+            });
             this.addCommand({
                 id: "resize-pinned-tabs",
                 name: "Get tasks",
