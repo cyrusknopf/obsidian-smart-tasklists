@@ -50,7 +50,7 @@ export default class ExamplePlugin extends Plugin {
         editorCallback: (editor: Editor) => {
             const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (markdownView) {
-                const task_regex = /^\s+- \[ (?x?) \]/;
+                const task_regex = /^\s+- \[( |x)\]/                ;
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     var match = editor.getLine(i).match(task_regex)
                     if (match) {
