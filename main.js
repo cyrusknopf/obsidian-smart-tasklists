@@ -67,6 +67,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                             if (match) {
                                 var isDone = match[1] == "x";
                                 var task = new Task(i, null, match[0].length, isDone, []);
+                                tasks.push(task);
                                 var isNextLineTask = editor.getLine(i + 1).match(task_regex);
                                 if (isNextLineTask) {
                                     if (isNextLineTask[0].length === task.indent) {
