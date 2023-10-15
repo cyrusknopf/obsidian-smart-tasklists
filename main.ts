@@ -58,6 +58,8 @@ export default class ExamplePlugin extends Plugin {
             editorCallback: (editor: Editor) => {
                 const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
                 if (markdownView) {
+                    var tasks: Array<Task>;
+                    tasks = []
                     const task_regex = /^\s*- \[( |x)\]/;
                     for (var i=0; i<editor.lastLine()+1; i++) {
                         var match = editor.getLine(i).match(task_regex);
@@ -67,8 +69,6 @@ export default class ExamplePlugin extends Plugin {
                             var isNextLineTask = editor.getLine(i+1).match(task_regex);
                             if (isNextLineTask) {
                                 if (isNextLineTask[0].length === task.indent) {
-                                    var tasks: Array<Task>;
-                                    tasks = []
                                     tasks.push(new Task(i, null, match[0].length, isDone, []))
                                     console.log(tasks);
                                 }

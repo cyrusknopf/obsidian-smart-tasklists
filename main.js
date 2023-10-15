@@ -59,6 +59,8 @@ class ExamplePlugin extends obsidian_1.Plugin {
                 editorCallback: (editor) => {
                     const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
                     if (markdownView) {
+                        var tasks;
+                        tasks = [];
                         const task_regex = /^\s*- \[( |x)\]/;
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             var match = editor.getLine(i).match(task_regex);
@@ -68,8 +70,6 @@ class ExamplePlugin extends obsidian_1.Plugin {
                                 var isNextLineTask = editor.getLine(i + 1).match(task_regex);
                                 if (isNextLineTask) {
                                     if (isNextLineTask[0].length === task.indent) {
-                                        var tasks;
-                                        tasks = [];
                                         tasks.push(new Task(i, null, match[0].length, isDone, []));
                                         console.log(tasks);
                                     }
