@@ -50,6 +50,7 @@ export default class ExamplePlugin extends Plugin {
                         // console.log(match[0].length);
                         // console.log("for line" + editor.getLine(i));
                         checkLineForTasks(editor, task_regex, i +1, parent_chain, match[0].length);
+                        console.log(parent_chain);
                     }
                 }
             }
