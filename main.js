@@ -40,16 +40,6 @@ function checkLineForTasks(editor, pattern, lineNumber, parent_chain, indent) {
         }
     }
 }
-// function checkChildTasks(editor: Editor, pattern: RegExp, parent_chain: Array<number>) {
-//         for (var i=parent_chain.length -1 ; i > 0; i--) {
-//             const match = editor.getLine(i).match(pattern);
-//             if (match) {
-//                 if (!(match[1]==="x")) {
-//                     break;
-//                 }
-//             }
-//         }
-// }
 class ExamplePlugin extends obsidian_1.Plugin {
     onload() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -63,7 +53,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                         for (var i = 0; i < editor.lastLine() + 1; i++) {
                             var match = editor.getLine(i).match(task_regex);
                             if (match) {
-                                var parent_chain = [];
+                                var parent_chain = [i];
                                 checkLineForTasks(editor, task_regex, i + 1, parent_chain, match[0].length);
                             }
                         }

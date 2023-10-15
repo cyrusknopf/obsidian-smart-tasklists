@@ -30,17 +30,6 @@ function checkLineForTasks(editor: Editor, pattern: RegExp, lineNumber: number, 
     }
 }
 
-// function checkChildTasks(editor: Editor, pattern: RegExp, parent_chain: Array<number>) {
-//         for (var i=parent_chain.length -1 ; i > 0; i--) {
-//             const match = editor.getLine(i).match(pattern);
-//             if (match) {
-//                 if (!(match[1]==="x")) {
-//                     break;
-//                 }
-
-//             }
-//         }
-// }
 
 
 export default class ExamplePlugin extends Plugin {
@@ -56,7 +45,7 @@ export default class ExamplePlugin extends Plugin {
                 for (var i=0; i<editor.lastLine()+1; i++) {
                     var match = editor.getLine(i).match(task_regex)
                     if (match) {
-                        var parent_chain: number[] = [];
+                        var parent_chain: number[] = [i];
                         checkLineForTasks(editor, task_regex, i +1, parent_chain, match[0].length);
                     }
                 }
