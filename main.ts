@@ -37,18 +37,31 @@ class Task {
     public parent: number | null;
     public indent: number;
     public isDone: boolean;
-    public children: Array<number>;
+    public children: Array<Task>;
 
-    constructor(line: number, parent:number|null, indent: number, isDone: boolean, children: Array<number> ) {
+    constructor(line: number, parent:number|null, indent: number, isDone: boolean, children: Array<Task> ) {
         this.line = line;
         this.parent = parent;
         this.indent = indent;
         this.isDone = isDone;
         this.children = children;
     }
+
+    getChildren(editor: Editor) {
+        var i = 1;
+        while (editor.getLine(this.line + i)) {
+            var match = editor.getLine(this.line + i);
+            if (match[0].length < this.indent) {
+                var isDone = match[1] == "x";
+                var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
+                child.getChildren(editor);
+                this.children.push(child);
+            }
+        }
+        
+    }
+
 }
-
-
 
 export default class ExamplePlugin extends Plugin {
     async onload() {    
@@ -67,16 +80,9 @@ export default class ExamplePlugin extends Plugin {
                             var isDone = match[1] == "x";
                             var task = new Task(i, null, match[0].length, isDone, []);
                             tasks.push(task);
-                            var isNextLineTask = editor.getLine(i+1).match(task_regex);
-                            if (isNextLineTask) {
-                                if (isNextLineTask[0].length === task.indent) {
-                                    tasks.push(new Task(i, null, match[0].length, isDone, []))
-                                    console.log(tasks);
-                                }
-                            }
+                            task.getChildren(editor);
 
-
-                            // console.log(task);
+                            console.log(tasks);
                         }
                     }
                 }

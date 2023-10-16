@@ -49,6 +49,18 @@ class Task {
         this.isDone = isDone;
         this.children = children;
     }
+    getChildren(editor) {
+        var i = 1;
+        while (editor.getLine(this.line + i)) {
+            var match = editor.getLine(this.line + i);
+            if (match[0].length < this.indent) {
+                var isDone = match[1] == "x";
+                var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
+                child.getChildren(editor);
+                this.children.push(child);
+            }
+        }
+    }
 }
 class ExamplePlugin extends obsidian_1.Plugin {
     onload() {
@@ -68,14 +80,8 @@ class ExamplePlugin extends obsidian_1.Plugin {
                                 var isDone = match[1] == "x";
                                 var task = new Task(i, null, match[0].length, isDone, []);
                                 tasks.push(task);
-                                var isNextLineTask = editor.getLine(i + 1).match(task_regex);
-                                if (isNextLineTask) {
-                                    if (isNextLineTask[0].length === task.indent) {
-                                        tasks.push(new Task(i, null, match[0].length, isDone, []));
-                                        console.log(tasks);
-                                    }
-                                }
-                                // console.log(task);
+                                task.getChildren(editor);
+                                console.log(tasks);
                             }
                         }
                     }
