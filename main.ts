@@ -58,8 +58,8 @@ class Task {
                     child.getChildren(editor, task_regex);
                     this.children.push(child);
                 }
-        
             }
+            i = i + 1;
         
         }
     }

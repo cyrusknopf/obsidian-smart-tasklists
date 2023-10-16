@@ -61,6 +61,7 @@ class Task {
                     this.children.push(child);
                 }
             }
+            i = i + 1;
         }
     }
 }
@@ -82,7 +83,7 @@ class ExamplePlugin extends obsidian_1.Plugin {
                                 var isDone = match[1] == "x";
                                 var task = new Task(i, null, match[0].length, isDone, []);
                                 tasks.push(task);
-                                task.getChildren(editor);
+                                task.getChildren(editor, task_regex);
                                 console.log(tasks);
                             }
                         }
