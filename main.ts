@@ -47,18 +47,21 @@ class Task {
         this.children = children;
     }
 
-    getChildren(editor: Editor) {
+    getChildren(editor: Editor, task_regex: RegExp) {
         var i = 1;
-        while (editor.getLine(this.line + i)) {
-            var match = editor.getLine(this.line + i);
-            if (match[0].length < this.indent) {
-                var isDone = match[1] == "x";
-                var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
-                child.getChildren(editor);
-                this.children.push(child);
-            }
-        }
+        while (editor.getLine(this.line + i).match(task_regex)) {
+            var match = editor.getLine(this.line + i).match(task_regex);
+            if (match) {
+                if (match[0].length < this.indent) {
+                    var isDone = match[1] == "x";
+                    var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
+                    child.getChildren(editor, task_regex);
+                    this.children.push(child);
+                }
         
+            }
+        
+        }
     }
 
 }
@@ -80,7 +83,7 @@ export default class ExamplePlugin extends Plugin {
                             var isDone = match[1] == "x";
                             var task = new Task(i, null, match[0].length, isDone, []);
                             tasks.push(task);
-                            task.getChildren(editor);
+                            task.getChildren(editor, task_regex);
 
                             console.log(tasks);
                         }

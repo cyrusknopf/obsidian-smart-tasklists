@@ -49,15 +49,17 @@ class Task {
         this.isDone = isDone;
         this.children = children;
     }
-    getChildren(editor) {
+    getChildren(editor, task_regex) {
         var i = 1;
-        while (editor.getLine(this.line + i)) {
-            var match = editor.getLine(this.line + i);
-            if (match[0].length < this.indent) {
-                var isDone = match[1] == "x";
-                var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
-                child.getChildren(editor);
-                this.children.push(child);
+        while (editor.getLine(this.line + i).match(task_regex)) {
+            var match = editor.getLine(this.line + i).match(task_regex);
+            if (match) {
+                if (match[0].length < this.indent) {
+                    var isDone = match[1] == "x";
+                    var child = new Task(this.line + i, this.line, match[0].length, isDone, []);
+                    child.getChildren(editor, task_regex);
+                    this.children.push(child);
+                }
             }
         }
     }
