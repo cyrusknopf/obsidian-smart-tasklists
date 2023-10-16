@@ -84,10 +84,9 @@ export default class ExamplePlugin extends Plugin {
                             var task = new Task(i, null, match[0].length, isDone, []);
                             tasks.push(task);
                             task.getChildren(editor, task_regex);
-
-                            console.log(tasks);
                         }
                     }
+                    console.log(tasks);
                 }
             }
     
