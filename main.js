@@ -18,6 +18,14 @@ class Task {
         this.isDone = isDone;
         this.children = children;
     }
+    setDone() {
+        //todo implement
+        return -1;
+    }
+    setNotDone() {
+        //todo implement
+        return -1;
+    }
     getChildren(editor, task_regex) {
         var i = 1;
         while (editor.getLine(this.line + i).match(task_regex)) {
@@ -35,6 +43,16 @@ class Task {
             }
             i = i + 1;
         }
+    }
+    checkChildren(editor, tasks) {
+        tasks.forEach((task) => {
+            task.children.forEach((child) => {
+                if (child.isDone === false) {
+                    return;
+                }
+                task.setDone();
+            });
+        });
     }
 }
 class ExamplePlugin extends obsidian_1.Plugin {

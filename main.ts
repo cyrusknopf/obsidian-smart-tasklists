@@ -14,6 +14,17 @@ class Task {
         this.children = children;
     }
 
+
+    setDone() {
+        //todo implement
+        return -1;
+    }
+
+    setNotDone() {
+        //todo implement
+        return -1;
+    }
+
     getChildren(editor: Editor, task_regex: RegExp) {
         var i = 1;
         while (editor.getLine(this.line + i).match(task_regex)) {
@@ -33,6 +44,18 @@ class Task {
             i = i + 1;
         
         }
+    }
+
+
+    checkChildren(editor: Editor, tasks: Array<Task>) {
+        tasks.forEach((task) => {
+            task.children.forEach((child) => {
+                if (child.isDone === false) {
+                    return;
+                }
+                task.setDone();
+            })
+        })
     }
 
 }
