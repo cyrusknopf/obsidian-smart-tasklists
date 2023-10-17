@@ -18,13 +18,9 @@ class Task {
         this.isDone = isDone;
         this.children = children;
     }
-    setDone() {
-        //todo implement
-        return -1;
-    }
-    setNotDone() {
-        //todo implement
-        return -1;
+    setDone(editor) {
+        console.log("Setting done on line" + this.line);
+        editor.setLine(this.line, editor.getLine(this.line).replace(/(\s*)- \[ \]/, "$1- [x]"));
     }
     getChildren(editor, task_regex) {
         var i = 1;
@@ -44,15 +40,12 @@ class Task {
             i = i + 1;
         }
     }
-    checkChildren(editor, tasks) {
-        tasks.forEach((task) => {
-            task.children.forEach((child) => {
-                if (child.isDone === false) {
-                    return;
-                }
-                task.setDone();
-            });
-        });
+    checkChildren(editor, children) {
+        for (const child of children) {
+            if (child.isDone == false)
+                return -1;
+        }
+        return 1;
     }
 }
 class ExamplePlugin extends obsidian_1.Plugin {
@@ -77,6 +70,13 @@ class ExamplePlugin extends obsidian_1.Plugin {
                             }
                         }
                         console.log(tasks);
+                        for (const task of tasks) {
+                            if (task.children.length != 0) {
+                                console.log(task.checkChildren(editor, task.children) + "for task on line " + task.line);
+                                if (task.checkChildren(editor, task.children) === 1)
+                                    task.setDone(editor);
+                            }
+                        }
                     }
                 }
             });
