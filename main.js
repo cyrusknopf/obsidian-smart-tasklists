@@ -59,7 +59,6 @@ class ExamplePlugin extends obsidian_1.Plugin {
         });
     }
     updateTasks() {
-        console.log("Updating tasks...");
         const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
         if (markdownView) {
             const editor = markdownView.editor;

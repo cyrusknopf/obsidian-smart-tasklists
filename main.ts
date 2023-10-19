@@ -61,7 +61,6 @@ export default class ExamplePlugin extends Plugin {
     }
 
     updateTasks() {
-        console.log("Updating tasks...");
         const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
         if (markdownView) {
             const editor = markdownView.editor;
