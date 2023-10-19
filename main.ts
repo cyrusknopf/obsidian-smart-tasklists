@@ -16,7 +16,6 @@ class Task {
 
 
     setDone(editor: Editor) {
-        console.log("Setting done on line" + this.line);
         editor.setLine(this.line, editor.getLine(this.line).replace(/(\s*)- \[ \]/, "$1- [x]"));
     }
 
@@ -54,34 +53,35 @@ class Task {
 
 export default class ExamplePlugin extends Plugin {
     async onload() {    
-        this.addCommand({
-            id: "get-tasks",
-            name: "Get tasks",
-            editorCallback: (editor: Editor) => {
-                const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-                if (markdownView) {
-                    var tasks: Array<Task>;
-                    tasks = []
-                    const task_regex = /^\s*- \[( |x)\]/;
-                    for (var i=0; i<editor.lastLine()+1; i++) {
-                        var match = editor.getLine(i).match(task_regex);
-                        if (match) {
-                            var isDone = match[1] == "x";
-                            var task = new Task(i, null, match[0].length, isDone, []);
-                            tasks.push(task);
-                            task.getChildren(editor, task_regex);
-                        }
-                    }
-                    console.log(tasks);
-                    for (const task of tasks) {
-                        if (task.children.length != 0) {
-                            console.log(task.checkChildren(editor, task.children) + "for task on line " + task.line);
-                            if (task.checkChildren(editor, task.children) === 1) task.setDone(editor);
-                        }
-                    }
+        this.app.vault.on('modify', this.updateTasks.bind(this))
+    }
+
+    async onunload() {
+        this.app.vault.off('modify', this.updateTasks.bind(this));
+    }
+
+    updateTasks() {
+        console.log("Updating tasks...");
+        const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
+        if (markdownView) {
+            const editor = markdownView.editor;
+            var tasks: Array<Task>;
+            tasks = []
+            const task_regex = /^\s*- \[( |x)\]/;
+            for (var i=0; i<editor.lastLine()+1; i++) {
+                var match = editor.getLine(i).match(task_regex);
+                if (match) {
+                    var isDone = match[1] == "x";
+                    var task = new Task(i, null, match[0].length, isDone, []);
+                    tasks.push(task);
+                    task.getChildren(editor, task_regex);
                 }
             }
-    
-        });  
-  }
+            for (const task of tasks) {
+                if (task.children.length != 0) {
+                    if (task.checkChildren(editor, task.children) === 1) task.setDone(editor);
+                }
+            }
+        }
+    }
 }

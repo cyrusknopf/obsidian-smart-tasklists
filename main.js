@@ -19,7 +19,6 @@ class Task {
         this.children = children;
     }
     setDone(editor) {
-        console.log("Setting done on line" + this.line);
         editor.setLine(this.line, editor.getLine(this.line).replace(/(\s*)- \[ \]/, "$1- [x]"));
     }
     getChildren(editor, task_regex) {
@@ -51,36 +50,38 @@ class Task {
 class ExamplePlugin extends obsidian_1.Plugin {
     onload() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.addCommand({
-                id: "get-tasks",
-                name: "Get tasks",
-                editorCallback: (editor) => {
-                    const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
-                    if (markdownView) {
-                        var tasks;
-                        tasks = [];
-                        const task_regex = /^\s*- \[( |x)\]/;
-                        for (var i = 0; i < editor.lastLine() + 1; i++) {
-                            var match = editor.getLine(i).match(task_regex);
-                            if (match) {
-                                var isDone = match[1] == "x";
-                                var task = new Task(i, null, match[0].length, isDone, []);
-                                tasks.push(task);
-                                task.getChildren(editor, task_regex);
-                            }
-                        }
-                        console.log(tasks);
-                        for (const task of tasks) {
-                            if (task.children.length != 0) {
-                                console.log(task.checkChildren(editor, task.children) + "for task on line " + task.line);
-                                if (task.checkChildren(editor, task.children) === 1)
-                                    task.setDone(editor);
-                            }
-                        }
-                    }
-                }
-            });
+            this.app.vault.on('modify', this.updateTasks.bind(this));
         });
+    }
+    onunload() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.app.vault.off('modify', this.updateTasks.bind(this));
+        });
+    }
+    updateTasks() {
+        console.log("Updating tasks...");
+        const markdownView = this.app.workspace.getActiveViewOfType(obsidian_1.MarkdownView);
+        if (markdownView) {
+            const editor = markdownView.editor;
+            var tasks;
+            tasks = [];
+            const task_regex = /^\s*- \[( |x)\]/;
+            for (var i = 0; i < editor.lastLine() + 1; i++) {
+                var match = editor.getLine(i).match(task_regex);
+                if (match) {
+                    var isDone = match[1] == "x";
+                    var task = new Task(i, null, match[0].length, isDone, []);
+                    tasks.push(task);
+                    task.getChildren(editor, task_regex);
+                }
+            }
+            for (const task of tasks) {
+                if (task.children.length != 0) {
+                    if (task.checkChildren(editor, task.children) === 1)
+                        task.setDone(editor);
+                }
+            }
+        }
     }
 }
 exports.default = ExamplePlugin;
